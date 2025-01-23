@@ -67,6 +67,16 @@ page {
   color: #ffffff;
 }
 
+/* 添加激活状态的样式 */
+.submit-btn:not([disabled]) {
+  background: #07c160; /* 微信绿色 */
+  transition: background-color 0.3s;
+}
+
+.submit-btn:not([disabled]):active {
+  background: #06ad56; /* 点击时的深绿色 */
+}
+
 .album-icon {
   width: 60rpx;
   height: 60rpx;
