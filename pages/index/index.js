@@ -55,4 +55,22 @@ Page({
       });
     }, 1500);
   },
+
+  // 点击设置按钮
+  onSettingsTap() {
+    // TODO: 处理设置按钮点击
+    wx.showToast({
+      title: "设置功能开发中",
+      icon: "none",
+    });
+  },
+
+  // 点击个人资料按钮
+  onProfileTap() {
+    // TODO: 处理个人资料按钮点击
+    wx.showToast({
+      title: "个人资料功能开发中",
+      icon: "none",
+    });
+  },
 });

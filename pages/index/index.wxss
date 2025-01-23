@@ -4,20 +4,16 @@ page {
   display: flex;
   flex-direction: column;
   background-color: #f7f6f3;
-}
-.scrollarea {
-  flex: 1;
-  overflow-y: hidden;
-  padding: 0;
+  overflow: hidden; /* 禁止页面滚动 */
 }
 
 .container {
+  flex: 1;
   padding: 32rpx;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  height: 100%;
   padding-bottom: 100rpx;
 }
 
@@ -80,4 +76,16 @@ page {
   padding: 10rpx;
   background: rgba(255, 255, 255, 0.9);
   border-radius: 8rpx;
+}
+
+.nav-btn {
+  padding: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-icon {
+  width: 44rpx;
+  height: 44rpx;
 }
