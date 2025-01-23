@@ -1,11 +1,21 @@
 // index.js
 Page({
   data: {
-    tempImagePath: "", // 临时图片路径
+    imageList: [], // 存储多张图片
+    maxCount: 9, // 最大可选择图片数
   },
 
   // 选择图片（点击整个区域时触发）
   chooseImage() {
+    const remainCount = this.data.maxCount - this.data.imageList.length;
+    if (remainCount <= 0) {
+      wx.showToast({
+        title: "最多选择9张图片",
+        icon: "none",
+      });
+      return;
+    }
+
     wx.showActionSheet({
       itemList: ["拍照", "从相册选择"],
       success: (res) => {
@@ -17,28 +27,56 @@ Page({
 
   // 直接从相册选择（点击相册图标时触发）
   chooseFromAlbum(e) {
-    // 阻止事件冒泡，防止触发父元素的点击事件
     e.stopPropagation();
+    const remainCount = this.data.maxCount - this.data.imageList.length;
+    if (remainCount <= 0) {
+      wx.showToast({
+        title: "最多选择9张图片",
+        icon: "none",
+      });
+      return;
+    }
     this.chooseMedia(["album"]);
   },
 
   // 选择媒体的公共方法
   chooseMedia(sourceType) {
+    const remainCount = this.data.maxCount - this.data.imageList.length;
     wx.chooseMedia({
-      count: 1,
+      count: remainCount,
       mediaType: ["image"],
       sourceType: sourceType,
       success: (res) => {
+        const newImages = res.tempFiles.map((file) => file.tempFilePath);
         this.setData({
-          tempImagePath: res.tempFiles[0].tempFilePath,
+          imageList: [...this.data.imageList, ...newImages],
         });
       },
     });
   },
 
+  // 删除图片
+  deleteImage(e) {
+    const index = e.currentTarget.dataset.index;
+    const newList = [...this.data.imageList];
+    newList.splice(index, 1);
+    this.setData({
+      imageList: newList,
+    });
+  },
+
+  // 预览图片
+  previewImage(e) {
+    const index = e.currentTarget.dataset.index;
+    wx.previewImage({
+      current: this.data.imageList[index],
+      urls: this.data.imageList,
+    });
+  },
+
   // 提交图片
   submitImage() {
-    if (!this.data.tempImagePath) {
+    if (this.data.imageList.length === 0) {
       return;
     }
 
@@ -46,31 +84,24 @@ Page({
       title: "识别中...",
     });
 
-    // TODO: 这里后续添加上传到后端的逻辑
-    setTimeout(() => {
-      wx.hideLoading();
-      wx.showToast({
-        title: "识别成功",
-        icon: "success",
-      });
-    }, 1500);
+    // 跳转到结果页面
+    wx.hideLoading();
+    wx.navigateTo({
+      url: `/pages/result/result?images=${JSON.stringify(this.data.imageList)}`,
+    });
   },
 
   // 点击设置按钮
   onSettingsTap() {
-    // TODO: 处理设置按钮点击
-    wx.showToast({
-      title: "设置功能开发中",
-      icon: "none",
+    wx.navigateTo({
+      url: "/pages/settings/settings",
     });
   },
 
   // 点击个人资料按钮
   onProfileTap() {
-    // TODO: 处理个人资料按钮点击
-    wx.showToast({
-      title: "个人资料功能开发中",
-      icon: "none",
+    wx.navigateTo({
+      url: "/pages/profile/profile",
     });
   },
 });

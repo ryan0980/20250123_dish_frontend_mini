@@ -1,0 +1,57 @@
+<navigation-bar 
+  title="识别结果" 
+  back="{{true}}" 
+  color="black" 
+  background="#FFF">
+</navigation-bar>
+
+<view class="container">
+  <!-- 图片预览区域 -->
+  <view class="image-preview">
+    <swiper 
+      class="swiper" 
+      current="{{currentImageIndex}}"
+      bindchange="onSwiperChange">
+      <swiper-item wx:for="{{images}}" wx:key="index">
+        <image 
+          class="preview-image" 
+          src="{{item}}" 
+          mode="aspectFit"
+          bindtap="previewImage"
+          data-index="{{index}}"
+        ></image>
+      </swiper-item>
+    </swiper>
+    <view class="image-counter" wx:if="{{images.length > 1}}">
+      {{currentImageIndex + 1}}/{{images.length}}
+    </view>
+  </view>
+
+  <!-- 识别结果区域 -->
+  <view class="result-container">
+    <view class="result-header">
+      <text class="title">识别结果</text>
+      <view class="actions">
+        <view class="action-btn" bindtap="onShare">
+          <image class="action-icon" src="/assets/icons/share-line.svg"></image>
+        </view>
+        <view class="action-btn" bindtap="onFavorite">
+          <image class="action-icon" src="{{isFavorite ? '/assets/icons/star-fill.svg' : '/assets/icons/star-line.svg'}}"></image>
+        </view>
+      </view>
+    </view>
+
+    <view class="result-content">
+      <view class="loading-container" wx:if="{{loading}}">
+        <view class="loading"></view>
+        <text class="loading-text">识别中...</text>
+      </view>
+      <view class="result-list" wx:else>
+        <view class="result-item" wx:for="{{resultList}}" wx:key="index">
+          <text class="item-name">{{item.name}}</text>
+          <text class="item-price">¥{{item.price}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view> 

@@ -1,7 +1,5 @@
 {
-  "pages": [
-    "pages/index/index"
-  ],
+  "pages": ["pages/index/index", "pages/profile/profile", "pages/settings/settings", "pages/result/result"],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationStyle": "custom"

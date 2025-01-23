@@ -15,18 +15,35 @@
 </navigation-bar>
 
 <view class="container">
-  <!-- 上传区域 -->
-  <view class="upload-area" bindtap="chooseImage">
-    <block wx:if="{{!tempImagePath}}">
+  <!-- 图片列表 -->
+  <view class="image-list" wx:if="{{imageList.length > 0}}">
+    <view class="image-item" wx:for="{{imageList}}" wx:key="index">
+      <image 
+        class="preview-image" 
+        src="{{item}}" 
+        mode="aspectFill"
+        bindtap="previewImage"
+        data-index="{{index}}"
+      ></image>
+      <view class="delete-btn" catchtap="deleteImage" data-index="{{index}}">
+        <image class="delete-icon" src="/assets/icons/close-line.svg"></image>
+      </view>
+    </view>
+    <view class="upload-item" bindtap="chooseImage" wx:if="{{imageList.length < maxCount}}">
       <image class="upload-icon" src="/assets/icons/camera-fill.svg"></image>
-      <text class="upload-text">点击上传或拍照</text>
-      <image class="album-icon" src="/assets/icons/image-2-line.svg" catchtap="chooseFromAlbum"></image>
-    </block>
-    <image wx:else class="preview-image" src="{{tempImagePath}}" mode="aspectFit"></image>
+      <text class="upload-text">添加图片</text>
+    </view>
+  </view>
+
+  <!-- 空状态上传区域 -->
+  <view class="upload-area" bindtap="chooseImage" wx:else>
+    <image class="upload-icon" src="/assets/icons/camera-fill.svg"></image>
+    <text class="upload-text">点击上传或拍照</text>
+    <image class="album-icon" src="/assets/icons/image-2-line.svg" catchtap="chooseFromAlbum"></image>
   </view>
   
   <!-- 提交按钮 -->
-  <button class="submit-btn" bindtap="submitImage" disabled="{{!tempImagePath}}">
+  <button class="submit-btn" bindtap="submitImage" disabled="{{imageList.length === 0}}">
     识别菜单
   </button>
 </view>

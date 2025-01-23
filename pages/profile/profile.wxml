@@ -1,0 +1,41 @@
+<navigation-bar 
+  title="个人资料" 
+  back="{{true}}" 
+  color="black" 
+  background="#FFF">
+</navigation-bar>
+
+<view class="container">
+  <!-- 头像和昵称 -->
+  <view class="profile-header">
+    <image class="avatar" src="/assets/icons/user-settings-line.svg"></image>
+    <text class="nickname">未登录</text>
+  </view>
+
+  <!-- 个人信息列表 -->
+  <view class="profile-list">
+    <view class="profile-item" bindtap="onTapItem" data-type="history">
+      <view class="item-left">
+        <image class="item-icon" src="/assets/icons/history-line.svg"></image>
+        <text class="item-text">识别历史</text>
+      </view>
+      <image class="arrow-icon" src="/assets/icons/arrow-right-s-line.svg"></image>
+    </view>
+
+    <view class="profile-item" bindtap="onTapItem" data-type="favorite">
+      <view class="item-left">
+        <image class="item-icon" src="/assets/icons/star-line.svg"></image>
+        <text class="item-text">我的收藏</text>
+      </view>
+      <image class="arrow-icon" src="/assets/icons/arrow-right-s-line.svg"></image>
+    </view>
+
+    <view class="profile-item" bindtap="onTapItem" data-type="about">
+      <view class="item-left">
+        <image class="item-icon" src="/assets/icons/information-line.svg"></image>
+        <text class="item-text">关于我们</text>
+      </view>
+      <image class="arrow-icon" src="/assets/icons/arrow-right-s-line.svg"></image>
+    </view>
+  </view>
+</view> 

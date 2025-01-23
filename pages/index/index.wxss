@@ -19,7 +19,7 @@ page {
 
 .upload-area {
   width: 100%;
-  height: 400rpx;
+  height: 300rpx;
   background: #ffffff;
   border: 2rpx dashed #e0e0e0;
   border-radius: 12rpx;
@@ -88,4 +88,67 @@ page {
 .nav-icon {
   width: 44rpx;
   height: 44rpx;
+}
+
+.image-list {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+  margin-bottom: 32rpx;
+}
+
+.image-item {
+  width: calc((100% - 40rpx) / 3);
+  height: 200rpx;
+  position: relative;
+  border-radius: 12rpx;
+  overflow: hidden;
+}
+
+.image-item .preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 8rpx;
+  right: 8rpx;
+  width: 40rpx;
+  height: 40rpx;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-icon {
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.upload-item {
+  width: calc((100% - 40rpx) / 3);
+  height: 200rpx;
+  background: #ffffff;
+  border: 2rpx dashed #e0e0e0;
+  border-radius: 12rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-item .upload-icon {
+  width: 48rpx;
+  height: 48rpx;
+  margin-bottom: 8rpx;
+}
+
+.upload-item .upload-text {
+  font-size: 24rpx;
+  color: #999999;
 }
