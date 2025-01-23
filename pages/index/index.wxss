@@ -1,0 +1,83 @@
+/**index.wxss**/
+page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f7f6f3;
+}
+.scrollarea {
+  flex: 1;
+  overflow-y: hidden;
+  padding: 0;
+}
+
+.container {
+  padding: 32rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  padding-bottom: 100rpx;
+}
+
+.upload-area {
+  width: 100%;
+  height: 400rpx;
+  background: #ffffff;
+  border: 2rpx dashed #e0e0e0;
+  border-radius: 12rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32rpx;
+  cursor: pointer;
+  position: relative;
+}
+
+.upload-icon {
+  width: 80rpx;
+  height: 80rpx;
+  margin-bottom: 16rpx;
+}
+
+.upload-text {
+  font-size: 28rpx;
+  color: #999999;
+}
+
+.preview-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 12rpx;
+}
+
+.submit-btn {
+  width: 100%;
+  height: 88rpx;
+  background: #2d2d2d;
+  color: #ffffff;
+  border-radius: 8rpx;
+  font-size: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 32rpx;
+}
+
+.submit-btn[disabled] {
+  background: #cccccc;
+  color: #ffffff;
+}
+
+.album-icon {
+  width: 60rpx;
+  height: 60rpx;
+  position: absolute;
+  right: 20rpx;
+  bottom: 20rpx;
+  padding: 10rpx;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 8rpx;
+}

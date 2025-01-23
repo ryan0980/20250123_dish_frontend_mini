@@ -1,0 +1,20 @@
+<!--index.wxml-->
+<navigation-bar title="菜单识别" back="{{false}}" color="black" background="#FFF"></navigation-bar>
+<scroll-view class="scrollarea" scroll-y type="list">
+  <view class="container">
+    <!-- 上传区域 -->
+    <view class="upload-area" bindtap="chooseImage">
+      <block wx:if="{{!tempImagePath}}">
+        <image class="upload-icon" src="/assets/icons/camera-fill.svg"></image>
+        <text class="upload-text">点击上传或拍照</text>
+        <image class="album-icon" src="/assets/icons/image-2-line.svg" catchtap="chooseFromAlbum"></image>
+      </block>
+      <image wx:else class="preview-image" src="{{tempImagePath}}" mode="aspectFit"></image>
+    </view>
+    
+    <!-- 提交按钮 -->
+    <button class="submit-btn" bindtap="submitImage" disabled="{{!tempImagePath}}">
+      识别菜单
+    </button>
+  </view>
+</scroll-view>
