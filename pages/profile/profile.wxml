@@ -8,12 +8,30 @@
 <view class="container">
   <!-- 头像和昵称 -->
   <view class="profile-header">
-    <image class="avatar" src="/assets/icons/user-settings-line.svg"></image>
+    <view class="avatar-container" bindtap="changeAvatar">
+      <image class="avatar" src="{{avatarUrl}}" mode="aspectFill"></image>
+    </view>
     <text class="nickname">未登录</text>
   </view>
 
   <!-- 个人信息列表 -->
   <view class="profile-list">
+    <view class="profile-item" bindtap="onTapItem" data-type="allergy">
+      <view class="item-left">
+        <image class="item-icon" src="/assets/icons/alert-line.svg"></image>
+        <text class="item-text">过敏源</text>
+      </view>
+      <image class="arrow-icon" src="/assets/icons/arrow-right-s-line.svg"></image>
+    </view>
+
+    <view class="profile-item" bindtap="onTapItem" data-type="dislike">
+      <view class="item-left">
+        <image class="item-icon" src="/assets/icons/close-circle-line.svg"></image>
+        <text class="item-text">不喜欢的食材</text>
+      </view>
+      <image class="arrow-icon" src="/assets/icons/arrow-right-s-line.svg"></image>
+    </view>
+
     <view class="profile-item" bindtap="onTapItem" data-type="history">
       <view class="item-left">
         <image class="item-icon" src="/assets/icons/history-line.svg"></image>
@@ -36,6 +54,38 @@
         <text class="item-text">关于我们</text>
       </view>
       <image class="arrow-icon" src="/assets/icons/arrow-right-s-line.svg"></image>
+    </view>
+  </view>
+</view>
+
+<!-- 标签编辑弹窗 -->
+<view class="modal {{showModal ? 'show' : ''}}" catchtouchmove="preventTouchMove">
+  <view class="modal-mask" bindtap="hideModal"></view>
+  <view class="modal-content">
+    <view class="modal-header">
+      <text class="modal-title">{{modalType === 'allergy' ? '过敏源' : '不喜欢的食材'}}</text>
+    </view>
+    
+    <!-- 已有标签展示区域 -->
+    <view class="tags-container">
+      <view class="tag-list">
+        <view class="tag" wx:for="{{currentTags}}" wx:key="index">
+          {{item}}
+          <view class="tag-delete" catchtap="deleteTag" data-index="{{index}}">×</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 输入区域 -->
+    <view class="input-container">
+      <input class="tag-input" 
+        placeholder="请输入{{modalType === 'allergy' ? '过敏源' : '食材'}}" 
+        value="{{inputValue}}"
+        bindinput="onInput"
+        bindconfirm="addTag"
+        confirm-type="done"
+      />
+      <button class="add-btn" bindtap="addTag">添加</button>
     </view>
   </view>
 </view> 
