@@ -18,5 +18,9 @@
   },
   "componentFramework": "glass-easel",
   "sitemapLocation": "sitemap.json",
-  "lazyCodeLoading": "requiredComponents"
+  "lazyCodeLoading": "requiredComponents",
+  "miniprogramRoot": "miniprogram/",
+  "setting": {
+    "minLibVersion": "2.29.2"
+  }
 }

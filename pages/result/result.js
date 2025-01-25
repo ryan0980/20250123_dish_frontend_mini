@@ -2,16 +2,18 @@ Page({
   data: {
     images: [],
     currentImageIndex: 0,
-    loading: true,
+    loading: false,
     isFavorite: false,
+    message: "",
     resultList: [],
   },
 
   onLoad(options) {
-    const { images } = options;
+    const { images, message } = options;
     if (images) {
       this.setData({
         images: JSON.parse(images),
+        message: message || "暂无识别结果",
       });
       this.startRecognition();
     }
