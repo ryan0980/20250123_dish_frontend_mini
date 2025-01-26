@@ -122,40 +122,40 @@ Page({
     }
 
     wx.showLoading({
-      title: "上传中...",
-      mask: true, // 添加遮罩防止重复点击
+      title: "分析中...",
+      mask: true,
     });
 
-    // 发送第一张图片测试
+    // 发送第一张图片进行分析
     wx.request({
-      url: "http://127.0.0.1:5000/api/upload_base64", // 改回本地测试地址
+      url: "http://127.0.0.1:5000/api/analyze_menu", // 新的接口地址
       method: "POST",
       header: {
         "content-type": "application/json",
-        // 移除 X-WX-SERVICE 头部
       },
       data: JSON.stringify({
         image: this.data.imageBase64List[0],
       }),
       success: (res) => {
-        console.log("上传响应:", res);
+        console.log("分析响应:", res);
         if (res.data && res.data.code === 0) {
           wx.showToast({
-            title: "上传成功",
+            title: "分析成功",
             icon: "success",
             duration: 1500,
             success: () => {
               setTimeout(() => {
                 wx.navigateTo({
-                  url: `/pages/result/result?images=${JSON.stringify(this.data.imageList)}&message=${res.data.data.message}`,
+                  // 传递分析结果到结果页
+                  url: `/pages/result/result?images=${JSON.stringify(this.data.imageList)}&result=${encodeURIComponent(JSON.stringify(res.data.data))}`,
                 });
               }, 1500);
             },
           });
         } else {
-          console.error("上传失败响应:", res.data);
+          console.error("分析失败响应:", res.data);
           wx.showToast({
-            title: "上传失败",
+            title: res.data.errorMsg || "分析失败",
             icon: "error",
           });
         }
@@ -163,13 +163,12 @@ Page({
       fail: (err) => {
         console.error("请求失败:", err);
         wx.showToast({
-          title: "上传失败",
+          title: "请求失败",
           icon: "error",
         });
       },
       complete: () => {
         setTimeout(() => {
-          // 延迟关闭loading
           wx.hideLoading();
         }, 100);
       },

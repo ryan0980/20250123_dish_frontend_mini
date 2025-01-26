@@ -6,14 +6,20 @@ Page({
     isFavorite: false,
     message: "",
     resultList: [],
+    categories: {},
+    processingTime: "",
+    timestamp: "",
   },
 
   onLoad(options) {
-    const { images, message } = options;
+    const { images, result } = options;
     if (images) {
+      const parsedResult = JSON.parse(decodeURIComponent(result));
       this.setData({
         images: JSON.parse(images),
-        message: message || "暂无识别结果",
+        categories: parsedResult.categories,
+        processingTime: parsedResult.processing_time,
+        timestamp: parsedResult.timestamp,
       });
       this.startRecognition();
     }
