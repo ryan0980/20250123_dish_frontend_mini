@@ -44,39 +44,27 @@
     <view class="result-content">
       <view class="processing-info">
         <text class="time">处理时间: {{processingTime}}s</text>
+        <text class="total">总菜品数: {{totalItems}}</text>
         <text class="timestamp">{{timestamp}}</text>
       </view>
       
       <view class="category-list">
-        <!-- 凉菜 -->
-        <view class="category-section" wx:if="{{categories['1'].length > 0}}">
-          <view class="category-title">凉菜</view>
-          <view class="dish-list">
-            <view class="dish-item" wx:for="{{categories['1']}}" wx:key="index">
-              <view class="dish-name">{{item[0]}}</view>
-              <view class="dish-desc">{{item[1]}}</view>
-              <view class="dish-price">¥{{item[2]}}</view>
-              <view class="dish-rating">评分: {{item[3]}}</view>
-              <view class="dish-recommend">{{item[4]}}</view>
+        <block wx:for="{{categoryNames}}" wx:key="*this" wx:for-index="categoryId">
+          <view class="category-section" wx:if="{{categories[categoryId].items.length > 0}}">
+            <view class="category-title">
+              {{categories[categoryId].name}} ({{categories[categoryId].items.length}})
+            </view>
+            <view class="dish-list">
+              <view class="dish-item" wx:for="{{categories[categoryId].items}}" wx:key="name">
+                <view class="dish-header">
+                  <text class="dish-name">{{item.name}}</text>
+                  <text class="dish-price">¥{{item.price}}</text>
+                </view>
+                <text class="dish-desc" wx:if="{{item.description}}">{{item.description}}</text>
+              </view>
             </view>
           </view>
-        </view>
-        
-        <!-- 热菜和汤 -->
-        <view class="category-section" wx:if="{{categories['2'].length > 0}}">
-          <view class="category-title">热菜和汤</view>
-          <view class="dish-list">
-            <view class="dish-item" wx:for="{{categories['2']}}" wx:key="index">
-              <view class="dish-name">{{item[0]}}</view>
-              <view class="dish-desc">{{item[1]}}</view>
-              <view class="dish-price">¥{{item[2]}}</view>
-              <view class="dish-rating">评分: {{item[3]}}</view>
-              <view class="dish-recommend">{{item[4]}}</view>
-            </view>
-          </view>
-        </view>
-        
-        <!-- 其他分类同理... -->
+        </block>
       </view>
     </view>
   </view>
