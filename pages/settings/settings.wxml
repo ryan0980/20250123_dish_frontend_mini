@@ -67,7 +67,7 @@
         <view class="item-left">
           <text class="item-text">测试云托管 Container</text>
         </view>
-        <text class="status-text">{{cloudStatus}}</text>
+        <text class="status-text">{{containerStatus}}</text>
       </view>
     </view>
 

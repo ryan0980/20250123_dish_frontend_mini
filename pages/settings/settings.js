@@ -4,6 +4,7 @@ Page({
     pingStatus: "", // 百度连接状态
     serverStatus: "", // 本地服务器状态
     cloudStatus: "", // 云托管状态
+    containerStatus: "", // 添加 Container 测试状态
     useCallContainer: true, // 添加请求方式开关状态
   },
 
@@ -124,7 +125,6 @@ Page({
         console.log("服务状态:", status);
         console.log("完整响应:", data);
 
-        // 只检查服务状态
         if (status === "running") {
           this.setData({ cloudStatus: "服务正常" });
           wx.showToast({
@@ -207,29 +207,37 @@ Page({
         "X-WX-EXCLUDE-CREDENTIALS": "unionid, cloudbase-access-token, openid",
       },
       success: ({ data }) => {
-        const { status, database } = data.data;
-        console.log("服务状态:", status);
-        console.log("数据库状态:", database);
+        console.log("Container状态:", status);
         console.log("完整响应:", data);
 
-        if (database.includes("unhealthy")) {
-          console.error("‼️ 数据库连接异常");
-          this.setData({ cloudStatus: "服务异常" });
-          wx.showToast({
-            title: "数据库异常",
-            icon: "error",
-          });
+        // 检查返回的数据结构
+        let status;
+        if (data.data && data.data.status) {
+          status = data.data.status;
+        } else if (data.status) {
+          status = data.status;
         } else {
-          this.setData({ cloudStatus: "服务正常" });
+          status = "unknown";
+        }
+
+        if (status === "running") {
+          this.setData({ containerStatus: "服务正常" });
           wx.showToast({
             title: "连接成功",
             icon: "success",
+          });
+        } else {
+          console.error("‼️ Container异常");
+          this.setData({ containerStatus: "服务异常" });
+          wx.showToast({
+            title: "服务异常",
+            icon: "error",
           });
         }
       },
       fail: (err) => {
         console.error("请求失败:", err.errMsg);
-        this.setData({ cloudStatus: "服务异常" });
+        this.setData({ containerStatus: "服务异常" });
         wx.showToast({
           title: "连接失败",
           icon: "error",

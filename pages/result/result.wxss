@@ -7,11 +7,8 @@ page {
 
 .container {
   flex: 1;
-  display: flex;
-  flex-direction: column;
   padding: 32rpx;
   box-sizing: border-box;
-  overflow: hidden;
 }
 
 .image-preview {
@@ -47,13 +44,11 @@ page {
 }
 
 .result-container {
-  flex: 1;
   background: #ffffff;
   border-radius: 12rpx;
   padding: 32rpx;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 
 .result-header {
@@ -91,8 +86,6 @@ page {
 }
 
 .result-content {
-  flex: 1;
-  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   padding-right: 16rpx;
 }
@@ -266,4 +259,33 @@ checkbox {
 
 .result-content::-webkit-scrollbar-track {
   background-color: transparent;
+}
+
+/* 固定在右下角的按钮 */
+.float-btn {
+  position: fixed;
+  right: 32rpx;
+  bottom: calc(32rpx + env(safe-area-inset-bottom));
+  padding: 20rpx 32rpx;
+  background: #07c160;
+  border-radius: 48rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.float-btn .total-price {
+  color: #ffffff;
+  font-size: 32rpx;
+  font-weight: 600;
+  padding-right: 16rpx;
+  border-right: 2rpx solid rgba(255, 255, 255, 0.3);
+}
+
+.float-btn .btn-text {
+  color: #ffffff;
+  font-size: 28rpx;
+  font-weight: 500;
 }

@@ -6,6 +6,10 @@
 </navigation-bar>
 
 <view class="container">
+  <view class="total-price">
+    <text class="total-label">总计</text>
+    <text class="total-amount">¥{{totalPrice}}</text>
+  </view>
   <view class="order-list">
     <view class="order-item" wx:for="{{items}}" wx:key="name">
       <view class="item-content">

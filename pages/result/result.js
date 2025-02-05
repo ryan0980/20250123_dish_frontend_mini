@@ -19,6 +19,7 @@ Page({
       7: "其他",
     },
     selectedItems: [],
+    totalPrice: "0.00",
   },
 
   onLoad(options) {
@@ -93,7 +94,15 @@ Page({
       }
     }
 
-    this.setData({ selectedItems: this.data.selectedItems });
+    // 更新选中项和总价
+    const total = this.data.selectedItems.reduce((sum, item) => {
+      return sum + parseFloat(item.price);
+    }, 0);
+
+    this.setData({
+      selectedItems: this.data.selectedItems,
+      totalPrice: total.toFixed(2),
+    });
   },
 
   generateOrder() {

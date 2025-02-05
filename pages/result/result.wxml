@@ -5,7 +5,7 @@
   background="#FFF">
 </navigation-bar>
 
-<view class="container">
+<scroll-view class="container" scroll-y enable-flex>
   <!-- 图片预览区域 -->
   <view class="image-preview">
     <swiper 
@@ -31,9 +31,6 @@
   <view class="result-container">
     <view class="result-header">
       <text class="title">识别结果</text>
-      <view class="action-btn" bindtap="generateOrder" wx:if="{{selectedItems.length > 0}}">
-        <text class="btn-text">生成点菜单</text>
-      </view>
     </view>
 
     <view class="result-content">
@@ -71,4 +68,10 @@
       </view>
     </view>
   </view>
+</scroll-view>
+
+<!-- 固定在右下角的生成按钮 -->
+<view class="float-btn" bindtap="generateOrder" wx:if="{{selectedItems.length > 0}}">
+  <text class="total-price">¥{{totalPrice}}</text>
+  <text class="btn-text">生成点菜单</text>
 </view> 
