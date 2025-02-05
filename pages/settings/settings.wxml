@@ -38,5 +38,46 @@
         <text class="version">v1.0.0</text>
       </view>
     </view>
+
+    <view class="settings-group">
+      <view class="settings-item" bindtap="testPingBaidu">
+        <view class="item-left">
+          <text class="item-text">测试连接百度</text>
+        </view>
+        <text class="status-text">{{pingStatus}}</text>
+      </view>
+
+      <view class="settings-item" bindtap="testLocalServer">
+        <view class="item-left">
+          <text class="item-text">测试本地服务器</text>
+        </view>
+        <text class="status-text">{{serverStatus}}</text>
+      </view>
+    </view>
+
+    <view class="settings-group">
+      <view class="settings-item" bindtap="testCloudService">
+        <view class="item-left">
+          <text class="item-text">测试云托管</text>
+        </view>
+        <text class="status-text">{{cloudStatus}}</text>
+      </view>
+
+      <view class="settings-item" bindtap="testCloudContainer">
+        <view class="item-left">
+          <text class="item-text">测试云托管 Container</text>
+        </view>
+        <text class="status-text">{{cloudStatus}}</text>
+      </view>
+    </view>
+
+    <view class="settings-group">
+      <view class="settings-item">
+        <view class="item-left">
+          <text class="item-text">使用 Container 请求</text>
+        </view>
+        <switch class="item-switch" color="#2d2d2d" checked="{{useCallContainer}}" bindchange="onRequestMethodChange"></switch>
+      </view>
+    </view>
   </view>
 </view> 

@@ -31,13 +31,8 @@
   <view class="result-container">
     <view class="result-header">
       <text class="title">识别结果</text>
-      <view class="actions">
-        <view class="action-btn" bindtap="onShare">
-          <image class="action-icon" src="/assets/icons/share-line.svg"></image>
-        </view>
-        <view class="action-btn" bindtap="onFavorite">
-          <image class="action-icon" src="{{isFavorite ? '/assets/icons/star-fill.svg' : '/assets/icons/star-line.svg'}}"></image>
-        </view>
+      <view class="action-btn" bindtap="generateOrder" wx:if="{{selectedItems.length > 0}}">
+        <text class="btn-text">生成点菜单</text>
       </view>
     </view>
 
@@ -56,11 +51,19 @@
             </view>
             <view class="dish-list">
               <view class="dish-item" wx:for="{{categories[categoryId].items}}" wx:key="name">
-                <view class="dish-header">
-                  <text class="dish-name">{{item.name}}</text>
-                  <text class="dish-price">¥{{item.price}}</text>
-                </view>
-                <text class="dish-desc" wx:if="{{item.description}}">{{item.description}}</text>
+                <checkbox-group bindchange="onCheckboxChange" data-item="{{item}}">
+                  <view class="dish-content">
+                    <checkbox value="{{item.name}}" checked="{{item.checked}}" />
+                    <view class="dish-header">
+                      <view class="dish-name-group">
+                        <text class="dish-name">{{item.name}}</text>
+                        <text class="dish-original" wx:if="{{item.original_name}}">{{item.original_name}}</text>
+                      </view>
+                      <text class="dish-price">¥{{item.price}}</text>
+                    </view>
+                    <text class="dish-desc" wx:if="{{item.description}}">{{item.description}}</text>
+                  </view>
+                </checkbox-group>
               </view>
             </view>
           </view>

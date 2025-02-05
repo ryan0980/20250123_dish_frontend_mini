@@ -3,7 +3,6 @@ Page({
     images: [],
     currentImageIndex: 0,
     loading: false,
-    isFavorite: false,
     message: "",
     resultList: [],
     categories: {},
@@ -19,6 +18,7 @@ Page({
       6: "饮品",
       7: "其他",
     },
+    selectedItems: [],
   },
 
   onLoad(options) {
@@ -80,20 +80,30 @@ Page({
     }, 2000);
   },
 
-  onShare() {
-    wx.showShareMenu({
-      withShareTicket: true,
-      menus: ["shareAppMessage", "shareTimeline"],
-    });
+  onCheckboxChange(e) {
+    const item = e.currentTarget.dataset.item;
+    const checked = e.detail.value.length > 0;
+
+    if (checked) {
+      this.data.selectedItems.push(item);
+    } else {
+      const index = this.data.selectedItems.findIndex((i) => i.name === item.name);
+      if (index > -1) {
+        this.data.selectedItems.splice(index, 1);
+      }
+    }
+
+    this.setData({ selectedItems: this.data.selectedItems });
   },
 
-  onFavorite() {
-    this.setData({
-      isFavorite: !this.data.isFavorite,
-    });
-    wx.showToast({
-      title: this.data.isFavorite ? "已收藏" : "已取消收藏",
-      icon: "success",
+  generateOrder() {
+    if (this.data.selectedItems.length === 0) {
+      return;
+    }
+
+    // 将选中的菜品传递到订单页面
+    wx.navigateTo({
+      url: `/pages/order/order?items=${encodeURIComponent(JSON.stringify(this.data.selectedItems))}`,
     });
   },
 });

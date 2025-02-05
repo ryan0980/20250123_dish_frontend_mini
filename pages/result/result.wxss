@@ -75,13 +75,14 @@ page {
 }
 
 .action-btn {
-  width: 64rpx;
-  height: 64rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #f5f5f5;
-  border-radius: 32rpx;
+  padding: 16rpx 32rpx;
+  background: #07c160;
+  border-radius: 8rpx;
+}
+
+.btn-text {
+  color: #ffffff;
+  font-size: 28rpx;
 }
 
 .action-icon {
@@ -208,26 +209,50 @@ page {
 .dish-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 8rpx;
+}
+
+.dish-name-group {
+  flex: 1;
+  margin-right: 24rpx;
 }
 
 .dish-name {
   font-size: 30rpx;
   color: #333333;
   font-weight: 600;
+  display: block;
+}
+
+.dish-original {
+  font-size: 24rpx;
+  color: #666666;
+  display: block;
+  margin-top: 4rpx;
 }
 
 .dish-price {
   font-size: 28rpx;
   color: #ff4d4f;
   font-weight: 500;
+  white-space: nowrap;
 }
 
 .dish-desc {
   font-size: 24rpx;
   color: #666666;
   line-height: 1.5;
+}
+
+.dish-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 16rpx;
+}
+
+checkbox {
+  margin-top: 8rpx;
 }
 
 .result-content::-webkit-scrollbar {

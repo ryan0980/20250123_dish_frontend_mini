@@ -54,3 +54,18 @@ page {
 .item-switch {
   transform: scale(0.8);
 }
+
+/* 添加状态文本样式 */
+.status-text {
+  font-size: 28rpx;
+  color: #666666;
+}
+
+/* 添加成功和失败状态样式 */
+.status-success {
+  color: #07c160;
+}
+
+.status-error {
+  color: #ff4d4f;
+}

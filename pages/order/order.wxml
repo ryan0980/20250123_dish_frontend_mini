@@ -1,0 +1,21 @@
+<navigation-bar 
+  title="点菜单" 
+  back="{{true}}" 
+  color="black" 
+  background="#FFF">
+</navigation-bar>
+
+<view class="container">
+  <view class="order-list">
+    <view class="order-item" wx:for="{{items}}" wx:key="name">
+      <view class="item-content">
+        <view class="item-name-group">
+          <text class="item-name">{{item.name}}</text>
+          <text class="item-original" wx:if="{{item.original_name}}">{{item.original_name}}</text>
+        </view>
+        <text class="item-price">¥{{item.price}}</text>
+      </view>
+      <text class="item-desc" wx:if="{{item.description}}">{{item.description}}</text>
+    </view>
+  </view>
+</view> 

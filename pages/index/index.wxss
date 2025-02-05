@@ -89,10 +89,11 @@ page {
 }
 
 .nav-btn {
-  padding: 16rpx;
+  padding: 20rpx 32rpx; /* 增加水平内边距 */
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 8rpx; /* 增加顶部间距 */
 }
 
 .nav-icon {
