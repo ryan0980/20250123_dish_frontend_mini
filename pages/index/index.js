@@ -145,8 +145,21 @@ Page({
         data: {
           image: this.data.imageBase64List[0],
         },
-        success: this.handleAnalyzeSuccess,
-        fail: this.handleAnalyzeFail,
+        success: (res) => {
+          console.log("请求成功:", res);
+          wx.showToast({
+            title: "连接成功",
+            icon: "success",
+          });
+        },
+        fail: (err) => {
+          console.error("请求失败:", err);
+          wx.showModal({
+            title: "请求失败",
+            content: `错误信息: ${err.errMsg}`,
+            showCancel: false,
+          });
+        },
         complete: () => {
           setTimeout(() => wx.hideLoading(), 100);
         },

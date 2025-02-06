@@ -49,13 +49,9 @@ page {
   white-space: nowrap;
 }
 
-.cache-size,
-.version,
 .status-text {
   font-size: 28rpx;
-  color: #999999;
-  min-width: 120rpx;
-  text-align: right;
+  color: #666666;
 }
 
 .item-switch {
@@ -63,12 +59,6 @@ page {
   min-width: 80rpx;
   display: flex;
   justify-content: flex-end;
-}
-
-/* 添加状态文本样式 */
-.status-text {
-  font-size: 28rpx;
-  color: #666666;
 }
 
 /* 添加成功和失败状态样式 */
