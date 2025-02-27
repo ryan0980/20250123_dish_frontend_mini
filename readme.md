@@ -1,43 +1,58 @@
-# Menu Recognition Mini Program
+# 点餐智选助手 - 微信小程序前端
 
-A WeChat Mini Program for menu recognition through photos or uploaded images.
+这是点餐智选助手的微信小程序前端项目，旨在为用户提供便捷高效的菜单识别体验。通过拍照或上传图片，小程序可自动识别菜单并返回结构化的菜品信息，帮助用户更好地管理饮食与健康。
 
-## Features
+---
 
-### 1. Home Page
+## 主要功能
 
-- Take photos or upload images
-- Multiple image upload support (up to 9 images)
-- Image preview and deletion
-- Real-time recognition status feedback
+### 1. 首页功能
+- **拍照/上传图片**：用户可以拍摄或选择最多 9 张图片进行菜单识别。
+- **图片预览与删除**：支持预览已上传的图片，并允许用户删除不需要的图片。
+- **实时反馈**：识别过程中提供实时状态反馈，确保用户随时了解进度。
 
-### 2. Profile Center
+### 2. 个人资料中心
+- **自定义头像**：用户可上传个人头像，实现个性化展示。
+- **过敏源和不喜欢食材管理**：设置和管理过敏标签以及不喜食材，确保推荐结果符合个人饮食需求。
+- **历史记录与收藏**：查看历史识别记录和收藏的菜品，方便随时查阅和复用。
 
-- Custom avatar upload
-- Allergen tag management
-- Disliked ingredients management
-- Recognition history
-- Favorites management
-- About us
+### 3. 设置中心
+- **深色模式切换**：支持深色模式与浅色模式自由切换，提升用户体验。
+- **通知设置**：可定制通知选项，实时获取识别进度和更新提醒。
+- **缓存管理与版本更新**：提供缓存清理和版本检查功能，确保应用始终运行在最佳状态。
 
-### 3. Settings Center
+### 4. 识别结果页面
+- **多图轮播展示**：支持轮播展示多张图片的识别结果，让用户直观了解每张图片的解析情况。
+- **详细识别信息**：显示处理时间、总菜品数及各菜品详细信息，确保信息清晰全面。
+- **分享与收藏**：提供分享功能，方便用户将识别结果与他人分享，同时支持收藏喜欢的菜品。
 
-- Dark mode toggle
-- Notification settings
-- Cache management
-- Version update check
+---
 
-### 4. Recognition Result Page
+## 技术特点
 
-- Multiple image carousel display
-- Recognition results display
-- Share functionality
-- Favorite functionality
+- **Skyline 渲染引擎**：采用先进的 Skyline 渲染引擎，实现高效流畅的页面渲染。
+- **glass-easel 组件框架**：基于 glass-easel 组件框架构建模块化组件，提升界面美观与用户体验。
+- **自定义导航栏**：实现个性化导航栏设计，满足品牌及用户的定制化需求。
+- **本地数据持久化**：利用本地存储技术，保证用户数据持久化与快速访问。
+- **模块化组件设计**：各功能模块设计独立，便于后续维护与功能扩展。
 
-## Technical Features
+---
 
-- Using Skyline rendering engine
-- Using glass-easel component framework
-- Custom navigation bar
-- Local data persistence storage
-- Modular component design
+## 项目规划
+
+- **功能扩展**：未来将进一步完善识别功能和用户互动，结合个性化推荐及饮食管理功能。
+- **跨平台适配**：计划探索与其他平台的深度集成，提供更多使用场景与用户服务。
+- **用户体验优化**：持续优化页面响应速度和交互细节，为用户提供更优质的使用体验。
+
+---
+
+## 关联后端
+
+本小程序前端与点餐智选助手后端服务紧密关联，后端服务基于 Flask 框架实现菜单图像识别与数据结构化处理。  
+[点餐智选助手后端项目](https://github.com/ryan0980/20250130_dish_flask_backend/)
+
+---
+
+
+
+欢迎大家参与项目讨论与贡献，共同打造更智能便捷的点餐识别体验！
