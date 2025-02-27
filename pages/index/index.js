@@ -58,6 +58,9 @@ Page({
         this.setData({
           imageList: [...this.data.imageList, ...newImages],
         });
+
+        // 直接调用提交图片
+        this.submitImage(); // 选择完后直接上传
       },
     });
   },
@@ -130,40 +133,32 @@ Page({
     const useCallContainer = wx.getStorageSync("useCallContainer") ?? true;
 
     if (useCallContainer) {
-      // 使用 callContainer 上传文件
-      wx.chooseImage({
-        count: 1,
-        success: (res) => {
-          const filePath = res.tempFilePaths[0];
-          wx.showLoading({
-            title: "上传中...",
-          });
+      // 直接使用 imageList 中的第一张图片进行上传
+      const filePath = this.data.imageList[0]; // 使用已选择的图片
+      wx.showLoading({
+        title: "上传中...",
+      });
 
-          wx.cloud.uploadFile({
-            cloudPath: `uploads/${new Date().getTime()}.png`, // 生成唯一文件名
-            filePath: filePath,
-            config: {
-              env: "prod-7gnktgn569fb17fd", // 替换为你的环境ID
-            },
-            success: (uploadRes) => {
-              console.log("上传成功:", uploadRes.fileID);
-              // 上传成功后调用处理服务
-              this.processImage(uploadRes.fileID);
-            },
-            fail: (err) => {
-              console.error("上传失败:", err);
-              wx.showToast({
-                title: "上传失败",
-                icon: "error",
-              });
-            },
-            complete: () => {
-              wx.hideLoading();
-            },
-          });
+      wx.cloud.uploadFile({
+        cloudPath: `uploads/${new Date().getTime()}.png`, // 生成唯一文件名
+        filePath: filePath,
+        config: {
+          env: "prod-7gnktgn569fb17fd", // 替换为你的环境ID
+        },
+        success: (uploadRes) => {
+          console.log("上传成功:", uploadRes.fileID);
+          // 上传成功后调用处理服务
+          this.processImage(uploadRes.fileID);
         },
         fail: (err) => {
-          console.error("选择图片失败:", err);
+          console.error("上传失败:", err);
+          wx.showToast({
+            title: "上传失败",
+            icon: "error",
+          });
+        },
+        complete: () => {
+          wx.hideLoading();
         },
       });
     } else {
