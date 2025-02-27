@@ -81,7 +81,7 @@ Page({
     });
 
     wx.request({
-      url: "https://flask-1v9q-136719-9-1338172856.sh.run.tcloudbase.com/api/health",
+      url: "https://flask-fbj3-138928-10-1339459170.sh.run.tcloudbase.com/api/health",
       method: "GET",
       success: ({ data }) => {
         const { status } = data.data;
@@ -119,12 +119,12 @@ Page({
   testGetUserInfo() {
     wx.cloud.callContainer({
       config: {
-        env: "prod-8ghq809e099fda9e",
+        env: "prod-7gnktgn569fb17fd",
       },
       path: "/api/user/info", // 假设这是获取用户信息的接口
       method: "GET",
       header: {
-        "X-WX-SERVICE": "flask-1v9q",
+        "X-WX-SERVICE": "flask-fbj3",
       },
       success: (res) => {
         this.setData({
@@ -160,30 +160,24 @@ Page({
 
     wx.cloud.callContainer({
       config: {
-        env: "prod-8ghq809e099fda9e",
+        env: "prod-7gnktgn569fb17fd",
       },
-      path: "/api/health",
-      method: "GET",
+      path: "/api/count",
+      method: "POST",
       header: {
-        "X-WX-SERVICE": "flask-1v9q",
-        "content-type": "application/json",
-        "X-WX-EXCLUDE-CREDENTIALS": "unionid, cloudbase-access-token, openid",
+        "X-WX-SERVICE": "flask-fbj3",
+      },
+      data: {
+        action: "inc",
       },
       success: ({ data }) => {
-        console.log("Container状态:", status);
-        console.log("完整响应:", data);
+        console.log("=== Container 测试响应 ===");
+        console.log("状态码:", data.code);
+        console.log("计数:", data.count);
+        console.log("完整数据:", JSON.stringify(data, null, 2));
+        console.log("========================");
 
-        // 检查返回的数据结构
-        let status;
-        if (data.data && data.data.status) {
-          status = data.data.status;
-        } else if (data.status) {
-          status = data.status;
-        } else {
-          status = "unknown";
-        }
-
-        if (status === "running") {
+        if (data && data.code === 0) {
           this.setData({ containerStatus: "服务正常" });
           wx.showToast({
             title: "连接成功",
@@ -207,6 +201,47 @@ Page({
         });
       },
       complete: wx.hideLoading,
+    });
+  },
+
+  // 上传文件
+  uploadFile() {
+    wx.chooseImage({
+      count: 1,
+      success: (res) => {
+        const filePath = res.tempFilePaths[0];
+        wx.showLoading({
+          title: "上传中...",
+        });
+
+        wx.cloud.uploadFile({
+          cloudPath: `uploads/${new Date().getTime()}.png`, // 生成唯一文件名
+          filePath: filePath,
+          config: {
+            env: "prod-7gnktgn569fb17fd", // 替换为你的环境ID
+          },
+          success: (uploadRes) => {
+            console.log("上传成功:", uploadRes.fileID);
+            wx.showToast({
+              title: "上传成功",
+              icon: "success",
+            });
+          },
+          fail: (err) => {
+            console.error("上传失败:", err);
+            wx.showToast({
+              title: "上传失败",
+              icon: "error",
+            });
+          },
+          complete: () => {
+            wx.hideLoading();
+          },
+        });
+      },
+      fail: (err) => {
+        console.error("选择图片失败:", err);
+      },
     });
   },
 

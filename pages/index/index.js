@@ -130,44 +130,46 @@ Page({
     const useCallContainer = wx.getStorageSync("useCallContainer") ?? true;
 
     if (useCallContainer) {
-      // 使用 callContainer
-      wx.cloud.callContainer({
-        config: {
-          env: "prod-8ghq809e099fda9e",
-        },
-        path: "/api/analyze_menu",
-        method: "POST",
-        header: {
-          "X-WX-SERVICE": "flask-1v9q",
-          "content-type": "application/json",
-          "X-WX-EXCLUDE-CREDENTIALS": "unionid, cloudbase-access-token, openid",
-        },
-        data: {
-          image: this.data.imageBase64List[0],
-        },
+      // 使用 callContainer 上传文件
+      wx.chooseImage({
+        count: 1,
         success: (res) => {
-          console.log("请求成功:", res);
-          wx.showToast({
-            title: "连接成功",
-            icon: "success",
+          const filePath = res.tempFilePaths[0];
+          wx.showLoading({
+            title: "上传中...",
+          });
+
+          wx.cloud.uploadFile({
+            cloudPath: `uploads/${new Date().getTime()}.png`, // 生成唯一文件名
+            filePath: filePath,
+            config: {
+              env: "prod-7gnktgn569fb17fd", // 替换为你的环境ID
+            },
+            success: (uploadRes) => {
+              console.log("上传成功:", uploadRes.fileID);
+              // 上传成功后调用处理服务
+              this.processImage(uploadRes.fileID);
+            },
+            fail: (err) => {
+              console.error("上传失败:", err);
+              wx.showToast({
+                title: "上传失败",
+                icon: "error",
+              });
+            },
+            complete: () => {
+              wx.hideLoading();
+            },
           });
         },
         fail: (err) => {
-          console.error("请求失败:", err);
-          wx.showModal({
-            title: "请求失败",
-            content: `错误信息: ${err.errMsg}`,
-            showCancel: false,
-          });
-        },
-        complete: () => {
-          setTimeout(() => wx.hideLoading(), 100);
+          console.error("选择图片失败:", err);
         },
       });
     } else {
       // 使用 wx.request
       wx.request({
-        url: "https://flask-1v9q-136719-9-1338172856.sh.run.tcloudbase.com/api/analyze_menu",
+        url: "https://flask-fbj3-138928-10-1339459170.sh.run.tcloudbase.com/api/analyze_menu",
         method: "POST",
         header: {
           "content-type": "application/json",
@@ -182,6 +184,54 @@ Page({
         },
       });
     }
+  },
+
+  // 新增 processImage 方法
+  processImage(fileID) {
+    wx.cloud.callContainer({
+      config: {
+        env: "prod-7gnktgn569fb17fd", // 微信云托管的环境ID
+      },
+      path: "/api/analyze_menu_cloud", // 新的菜单分析接口路径
+      method: "POST",
+      header: {
+        "X-WX-SERVICE": "flask-fbj3", // 填入服务名称
+        "content-type": "application/json", // 请求内容类型
+      },
+      data: {
+        fileid: fileID, // 使用上传后返回的云端fileID
+      },
+      success: (res) => {
+        console.log("分析请求成功:", res);
+        if (res.data && res.data.code === 0) {
+          wx.showToast({
+            title: "分析成功",
+            icon: "success",
+            duration: 1500,
+            success: () => {
+              setTimeout(() => {
+                wx.navigateTo({
+                  url: `/pages/result/result?images=${JSON.stringify(this.data.imageList)}&result=${encodeURIComponent(JSON.stringify(res.data.data))}`,
+                });
+              }, 1500);
+            },
+          });
+        } else {
+          console.error("分析失败响应:", res.data);
+          wx.showToast({
+            title: res.data.error || "分析失败",
+            icon: "error",
+          });
+        }
+      },
+      fail: (err) => {
+        console.error("分析请求失败:", err);
+        wx.showToast({
+          title: "请求失败",
+          icon: "error",
+        });
+      },
+    });
   },
 
   // 抽取成功处理函数
